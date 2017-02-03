@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 使用Object[] 来封装一条数据
- * 使用List<Object[]> 来封装多条数据
+ * 使用Map 来封装一条数据
  * @author hc
  *
  */
