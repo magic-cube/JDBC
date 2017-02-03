@@ -1,5 +1,9 @@
 package jdbc;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.Reader;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,6 +19,7 @@ import java.util.Random;
 
 /**
  * 测试CLOB大文本对象的使用
+ * 以流的形式操作,写，读
  */
 public class Demo10 {
 	
@@ -27,7 +32,25 @@ public class Demo10 {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/testjdbc","root","hc433911");
 			
-			ps=conn.prepareStatement("select * from t_user where regTime>? and regTime<?");
+//			ps=conn.prepareStatement("insert into t_user(username,myinfo) values(?,?)");
+//			ps.setString(1, "haochuan");
+//			ps.setClob(2, new FileReader(new File("c:/my/hc.txt")));//将文本文件的内容直接输入到数据库中
+//			
+//			ps.executeUpdate();
+
+			
+			//读
+			ps=conn.prepareStatement("select * from t_user where id=?");
+			ps.setObject(1, 22019);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				Clob c=rs.getClob("myinfo");
+				Reader r=c.getCharacterStream();
+				int temp=0;
+				while((temp=r.read())!=-1){
+					System.out.print((char)temp);
+				}
+			}
 			
 			
 		}catch(Exception e){
