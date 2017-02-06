@@ -11,6 +11,28 @@ public class Base {
 		test();
 	}
 	
+	public static void template() throws ClassNotFoundException, SQLException{
+		Connection conn=null;
+		Statement st=null;
+		ResultSet rs=null;
+		try {
+			//建立连接
+			conn=JdbcUtils.getConnection();
+			//创建语句
+			st=conn.createStatement();
+			//执行语句
+			rs=st.executeQuery("select * from user");
+			//处理结果
+			while(rs.next()){
+				System.out.println(rs.getObject(1)+"\t"+rs.getObject(2)+"\t"+rs.getObject(3));
+			}
+		}finally{
+			JdbcUtils.free(rs, st, conn);
+		}
+	}
+	
+	
+	
 	public static void test() throws SQLException{
 		//1.注册驱动
 		DriverManager.registerDriver(new com.mysql.jdbc.Driver());
