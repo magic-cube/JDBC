@@ -18,7 +18,7 @@ public class OtherApi {
 			//建立连接
 			conn=JdbcUtils.getConnection();
 			//创建语句
-			String sql="insert into user(name,birthday,money) values('name2','1987-01-02',400)";
+			String sql="insert into user(name,birthday,money) values('name3','1987-01-02',400)";
 			//获取主键
 			ps=conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			//执行语句
@@ -27,7 +27,7 @@ public class OtherApi {
 			rs=ps.getGeneratedKeys();
 			int id=0;
 			while(rs.next()){
-				id=rs.getInt(1);
+				System.out.println(id=rs.getInt(1));
 			}
 			
 			System.out.println("i="+i);
