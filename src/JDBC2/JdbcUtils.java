@@ -19,7 +19,7 @@ public final class JdbcUtils {
 	private static String url="jdbc:mysql://localhost:3306/jdbc";
 	private static String user="root";
 	private static String password="hc433911";
-	private static MyDataSource myDataSource=new MyDataSource();
+	private static MyDataSource myDataSource=null;
 	private JdbcUtils() {
 		
 	}
@@ -28,6 +28,7 @@ public final class JdbcUtils {
 	static{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			myDataSource=new MyDataSource();
 		} catch (ClassNotFoundException e) {
 			throw new ExceptionInInitializerError(e);
 		}
